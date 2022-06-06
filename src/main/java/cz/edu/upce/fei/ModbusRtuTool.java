@@ -2,8 +2,6 @@ package cz.edu.upce.fei;
 
 import de.re.easymodbus.modbusclient.ModbusClient;
 import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
-import gnu.io.UnsupportedCommOperationException;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -12,7 +10,6 @@ import picocli.CommandLine.Parameters;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Field;
 import java.util.Enumeration;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
