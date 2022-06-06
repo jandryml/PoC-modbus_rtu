@@ -77,7 +77,6 @@ public class ModbusRtuTool implements Callable<Integer> {
         try {
             modbusClient.setUnitIdentifier(unitId);
             modbusClient.Connect(comPort);
-            setPortParams(modbusClient);
 
             logger.info("Sending data to: " + comPort);
 
@@ -105,18 +104,6 @@ public class ModbusRtuTool implements Callable<Integer> {
                 logger.info("Error while disconnecting on " + comPort + ": " + e.getMessage());
                 e.printStackTrace();
             }
-        }
-    }
-
-    private void setPortParams(ModbusClient modbusClient) {
-        try {
-            Field f = modbusClient.getClass().getDeclaredField("serialPort");
-            f.setAccessible(true);
-            SerialPort serialPort = (SerialPort) f.get(modbusClient);
-            // Baud rate, data size, stop bit, parity
-            serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_2, SerialPort.PARITY_NONE);
-        } catch (NoSuchFieldException | IllegalAccessException | UnsupportedCommOperationException e) {
-            e.printStackTrace();
         }
     }
 
