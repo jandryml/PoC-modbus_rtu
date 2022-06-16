@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Enumeration;
+import java.util.Scanner;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
         description = "Connects and write to Modbus register/coil via Rtu.")
 public class ModbusRtuTool implements Callable<Integer> {
 
-    Logger logger = Logger.getLogger(ModbusRtuTool.class.getName());
+    private Logger logger = Logger.getLogger(ModbusRtuTool.class.getName());
 
     @Option(names = {"-p", "--port"}, description = "Name of serial port. Auto-search if not filled.", defaultValue = "")
     private String comPort;
@@ -36,8 +37,14 @@ public class ModbusRtuTool implements Callable<Integer> {
     private int value;
 
     public static void main(String[] args) {
+        waitForUserInput();
         int exitCode = new CommandLine(new ModbusRtuTool()).execute(args);
         System.exit(exitCode);
+    }
+
+    private static void waitForUserInput() {
+        System.out.println("Press any key to continue");
+        new Scanner(System.in).nextLine();
     }
 
     @Override
